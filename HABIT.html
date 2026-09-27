@@ -1,0 +1,2776 @@
+<!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1.0"> <title>HabitFlow Ultra</title> <style> @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+:root{
+--bg:#f6f7fb;
+--surface:#ffffff;
+--surface2:#f8f9fd;
+--text:#151827;
+--muted:#8b91a7;
+--border:#e9ebf2;
+--primary:#6c63ff;
+--primary2:#8d5cff;
+--green:#20c997;
+--orange:#ffad33;
+--red:#ff5d73;
+--blue:#4da3ff;
+--shadow:0 15px 45px rgba(35,38,70,.07);
+--radius:22px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:
+radial-gradient(circle at 10% 10%,rgba(108,99,255,.08),transparent 25%),
+radial-gradient(circle at 90% 20%,rgba(141,92,255,.07),transparent 25%),
+var(--bg);
+color:var(--text);
+min-height:100vh;
+transition:.3s;
+}
+
+body.dark{
+--bg:#0b0d15;
+--surface:#151823;
+--surface2:#1b1f2c;
+--text:#f7f7fb;
+--muted:#858ca3;
+--border:#292e3d;
+--shadow:0 15px 45px rgba(0,0,0,.25);
+}
+
+/* ==============================
+LAYOUT
+============================== */
+
+.app{
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:250px;
+background:rgba(255,255,255,.72);
+backdrop-filter:blur(20px);
+border-right:1px solid var(--border);
+padding:28px 18px;
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+z-index:50;
+}
+
+.dark .sidebar{
+background:rgba(21,24,35,.85);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+padding:0 10px 35px;
+}
+
+.logo-mark{
+width:45px;
+height:45px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:22px;
+font-weight:800;
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+box-shadow:0 10px 25px rgba(108,99,255,.3);
+}
+
+.logo strong{
+font-family:"Plus Jakarta Sans";
+font-size:19px;
+}
+
+.logo span{
+display:block;
+color:var(--muted);
+font-size:10px;
+margin-top:2px;
+}
+
+.menu-title{
+color:var(--muted);
+font-size:10px;
+font-weight:700;
+text-transform:uppercase;
+letter-spacing:1px;
+padding:0 12px;
+margin:20px 0 9px;
+}
+
+.nav{
+display:flex;
+flex-direction:column;
+gap:5px;
+}
+
+.nav button{
+width:100%;
+border:0;
+background:transparent;
+color:var(--muted);
+padding:13px 14px;
+border-radius:13px;
+text-align:left;
+cursor:pointer;
+font-size:13px;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:12px;
+transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+background:rgba(108,99,255,.1);
+color:var(--primary);
+}
+
+.nav-icon{
+width:20px;
+text-align:center;
+font-size:17px;
+}
+
+.sidebar-bottom{
+position:absolute;
+left:18px;
+right:18px;
+bottom:25px;
+}
+
+.quote{
+background:linear-gradient(135deg,#6c63ff,#8d5cff);
+color:white;
+padding:18px;
+border-radius:18px;
+font-size:12px;
+line-height:1.6;
+box-shadow:0 15px 30px rgba(108,99,255,.25);
+}
+
+.quote span{
+display:block;
+opacity:.7;
+margin-top:8px;
+font-size:10px;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+width:calc(100% - 250px);
+padding:28px 35px 60px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.greeting h1{
+font-family:"Plus Jakarta Sans";
+font-size:27px;
+letter-spacing:-1px;
+}
+
+.greeting p{
+color:var(--muted);
+font-size:13px;
+margin-top:6px;
+}
+
+.top-actions{
+display:flex;
+gap:10px;
+}
+
+.icon-btn{
+width:42px;
+height:42px;
+border:1px solid var(--border);
+border-radius:13px;
+background:var(--surface);
+color:var(--text);
+cursor:pointer;
+font-size:17px;
+box-shadow:var(--shadow);
+}
+
+/* ==============================
+HERO
+============================== */
+
+.hero{
+background:
+radial-gradient(circle at 90% 10%,rgba(255,255,255,.2),transparent 25%),
+linear-gradient(135deg,#665df4,#8958ed 55%,#a457dc);
+border-radius:28px;
+padding:30px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+min-height:210px;
+box-shadow:0 20px 45px rgba(108,99,255,.25);
+overflow:hidden;
+position:relative;
+margin-bottom:22px;
+}
+
+.hero::after{
+content:"";
+width:260px;
+height:260px;
+border:40px solid rgba(255,255,255,.06);
+border-radius:50%;
+position:absolute;
+right:120px;
+top:-130px;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+}
+
+.hero-label{
+font-size:11px;
+text-transform:uppercase;
+letter-spacing:1.5px;
+opacity:.7;
+font-weight:700;
+}
+
+.hero h2{
+font-family:"Plus Jakarta Sans";
+font-size:29px;
+margin:8px 0;
+}
+
+.hero p{
+font-size:13px;
+opacity:.75;
+}
+
+.hero-btn{
+margin-top:18px;
+border:0;
+padding:11px 17px;
+border-radius:12px;
+background:white;
+color:#665df4;
+font-weight:700;
+cursor:pointer;
+}
+
+.hero-ring{
+width:145px;
+height:145px;
+border-radius:50%;
+background:conic-gradient(#fff 0deg,rgba(255,255,255,.18) 0deg);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+z-index:3;
+}
+
+.hero-ring::before{
+content:"";
+position:absolute;
+width:112px;
+height:112px;
+border-radius:50%;
+background:#7660ed;
+}
+
+.hero-ring div{
+position:relative;
+text-align:center;
+}
+
+.hero-ring strong{
+display:block;
+font-size:25px;
+}
+
+.hero-ring span{
+font-size:9px;
+opacity:.7;
+}
+
+/* ==============================
+GRID CARDS
+============================== */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:22px;
+}
+
+.stat-card{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:20px;
+padding:20px;
+box-shadow:var(--shadow);
+}
+
+.stat-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.stat-icon{
+width:39px;
+height:39px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+}
+
+.purple{background:#efedff}
+.green{background:#e5faf4}
+.orange{background:#fff4df}
+.red{background:#ffe8ed}
+
+.stat-card h3{
+font-size:25px;
+margin-top:15px;
+}
+
+.stat-card p{
+color:var(--muted);
+font-size:11px;
+margin-top:4px;
+}
+
+.change{
+color:var(--green);
+font-size:10px;
+font-weight:700;
+}
+
+/* ==============================
+CONTENT GRID
+============================== */
+
+.content-grid{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:20px;
+}
+
+.panel{
+background:var(--surface);
+border:1px solid var(--border);
+border-radius:22px;
+padding:22px;
+box-shadow:var(--shadow);
+}
+
+.panel-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.panel-title h3{
+font-family:"Plus Jakarta Sans";
+font-size:16px;
+}
+
+.panel-title span{
+color:var(--muted);
+font-size:11px;
+}
+
+/* ==============================
+CALENDAR
+============================== */
+
+.calendar-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:17px;
+}
+
+.month-control{
+display:flex;
+align-items:center;
+gap:7px;
+}
+
+.month-control button{
+width:30px;
+height:30px;
+border:1px solid var(--border);
+border-radius:9px;
+background:var(--surface2);
+color:var(--text);
+cursor:pointer;
+}
+
+.month-control strong{
+font-size:13px;
+min-width:110px;
+text-align:center;
+}
+
+.weekdays,
+.calendar-grid{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:7px;
+}
+
+.weekdays div{
+text-align:center;
+color:var(--muted);
+font-size:9px;
+font-weight:700;
+}
+
+.calendar-grid{
+margin-top:8px;
+}
+
+.date{
+min-height:53px;
+border:1px solid var(--border);
+border-radius:12px;
+padding:7px;
+cursor:pointer;
+transition:.2s;
+position:relative;
+}
+
+.date:hover{
+border-color:var(--primary);
+transform:translateY(-2px);
+}
+
+.date.today{
+border:2px solid var(--primary);
+}
+
+.date-number{
+font-size:10px;
+font-weight:700;
+}
+
+.date-bar{
+display:flex;
+gap:2px;
+margin-top:8px;
+}
+
+.dot{
+width:5px;
+height:5px;
+border-radius:50%;
+background:#dfe2eb;
+}
+
+.dot.done{
+background:var(--primary);
+}
+
+.dot.green{
+background:var(--green);
+}
+
+.dot.orange{
+background:var(--orange);
+}
+
+/* ==============================
+HABITS
+============================== */
+
+.habit-list{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.habit{
+border:1px solid var(--border);
+background:var(--surface2);
+padding:14px;
+border-radius:16px;
+}
+
+.habit-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.habit-info{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.habit-color{
+width:10px;
+height:10px;
+border-radius:50%;
+}
+
+.habit-info strong{
+font-size:12px;
+}
+
+.habit-info span{
+display:block;
+color:var(--muted);
+font-size:9px;
+margin-top:3px;
+}
+
+.check-btn{
+width:30px;
+height:30px;
+border-radius:9px;
+border:1px solid var(--border);
+background:var(--surface);
+cursor:pointer;
+color:transparent;
+}
+
+.check-btn.done{
+background:var(--primary);
+color:white;
+border-color:var(--primary);
+}
+
+.habit-progress{
+height:5px;
+background:var(--border);
+border-radius:10px;
+margin-top:12px;
+overflow:hidden;
+}
+
+.habit-progress div{
+height:100%;
+background:linear-gradient(90deg,var(--primary),var(--primary2));
+}
+
+/* ==============================
+HEATMAP
+============================== */
+
+.heatmap{
+display:grid;
+grid-template-columns:repeat(15,1fr);
+gap:5px;
+}
+
+.heat{
+aspect-ratio:1;
+border-radius:4px;
+background:#eceef4;
+}
+
+.heat.l1{background:#dcd9ff}
+.heat.l2{background:#bdb8ff}
+.heat.l3{background:#9189ff}
+.heat.l4{background:#655af5}
+
+.dark .heat{
+background:#272b38;
+}
+
+.dark .heat.l1{background:#39355e}
+.dark .heat.l2{background:#514b8d}
+.dark .heat.l3{background:#6b63c8}
+.dark .heat.l4{background:#8178ff}
+
+/* ==============================
+ACHIEVEMENT
+============================== */
+
+.achievements{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.badge{
+padding:15px 10px;
+border-radius:15px;
+text-align:center;
+background:var(--surface2);
+border:1px solid var(--border);
+}
+
+.badge-icon{
+font-size:24px;
+margin-bottom:7px;
+}
+
+.badge strong{
+display:block;
+font-size:10px;
+}
+
+.badge span{
+color:var(--muted);
+font-size:8px;
+}
+
+/* ==============================
+MODAL
+============================== */
+
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(10,12,20,.55);
+backdrop-filter:blur(8px);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:100;
+padding:20px;
+}
+
+.overlay.show{
+display:flex;
+}
+
+.modal{
+width:100%;
+max-width:440px;
+background:var(--surface);
+border-radius:25px;
+padding:25px;
+box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+
+.modal h2{
+font-family:"Plus Jakarta Sans";
+margin-bottom:6px;
+}
+
+.modal p{
+color:var(--muted);
+font-size:12px;
+margin-bottom:20px;
+}
+
+.input{
+width:100%;
+padding:14px;
+border:1px solid var(--border);
+background:var(--surface2);
+color:var(--text);
+border-radius:12px;
+outline:none;
+margin-bottom:12px;
+}
+
+.colors{
+display:flex;
+gap:9px;
+margin:10px 0 20px;
+}
+
+.color{
+width:30px;
+height:30px;
+border-radius:50%;
+cursor:pointer;
+border:3px solid transparent;
+}
+
+.color.selected{
+border-color:var(--text);
+}
+
+.modal-actions{
+display:flex;
+gap:10px;
+}
+
+.modal-actions button{
+flex:1;
+padding:13px;
+border:0;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+}
+
+.cancel{
+background:var(--surface2);
+color:var(--text);
+}
+
+.create{
+color:white;
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+}
+
+/* ==============================
+TOAST
+============================== */
+
+.toast{
+position:fixed;
+right:25px;
+bottom:25px;
+background:#181b28;
+color:white;
+padding:13px 18px;
+border-radius:13px;
+font-size:12px;
+transform:translateY(100px);
+opacity:0;
+transition:.3s;
+z-index:200;
+}
+
+.toast.show{
+transform:translateY(0);
+opacity:1;
+}
+
+/* ==============================
+MOBILE
+============================== */
+
+.mobile-menu{
+display:none;
+}
+
+@media(max-width:1050px){
+
+.stats{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.content-grid{
+    grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:800px){
+
+.sidebar{
+    transform:translateX(-100%);
+    transition:.3s;
+}
+
+.sidebar.open{
+    transform:translateX(0);
+}
+
+.main{
+    margin-left:0;
+    width:100%;
+    padding:20px 15px 50px;
+}
+
+.mobile-menu{
+    display:block;
+}
+
+.hero{
+    padding:22px;
+}
+
+.hero-ring{
+    width:100px;
+    height:100px;
+}
+
+.hero-ring::before{
+    width:78px;
+    height:78px;
+}
+
+}
+
+@media(max-width:600px){
+
+.stats{
+    grid-template-columns:1fr 1fr;
+}
+
+.hero h2{
+    font-size:21px;
+}
+
+.hero-ring{
+    width:80px;
+    height:80px;
+}
+
+.hero-ring::before{
+    width:62px;
+    height:62px;
+}
+
+.hero-ring strong{
+    font-size:16px;
+}
+
+.calendar-grid{
+    gap:4px;
+}
+
+.date{
+    min-height:42px;
+    padding:5px;
+}
+
+.date-bar{
+    margin-top:5px;
+}
+
+.achievements{
+    grid-template-columns:1fr 1fr 1fr;
+}
+
+}
+
+</style> </head> <body> <div class="app"> <!-- ========================= SIDEBAR ========================= --> <aside class="sidebar" id="sidebar">
+<div class="logo">
+
+    <div class="logo-mark">
+        ✓
+    </div>
+
+    <div>
+        <strong>HabitFlow</strong>
+        <span>PERSONAL GROWTH</span>
+    </div>
+
+</div>
+
+<div class="menu-title">
+    MENU
+</div>
+
+<nav class="nav">
+
+    <button class="active">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+    </button>
+
+    <button onclick="openModal()">
+        <span class="nav-icon">＋</span>
+        Tambah Habit
+    </button>
+
+    <button>
+        <span class="nav-icon">▣</span>
+        Kalender
+    </button>
+
+    <button>
+        <span class="nav-icon">◈</span>
+        Statistik
+    </button>
+
+</nav>
+
+<div class="menu-title">
+    LAINNYA
+</div>
+
+<nav class="nav">
+
+    <button onclick="toggleDark()">
+        <span class="nav-icon">◐</span>
+        Tampilan
+    </button>
+
+    <button onclick="resetAll()">
+        <span class="nav-icon">↻</span>
+        Reset Data
+    </button>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+    <div class="quote">
+        "Kebiasaan kecil yang dilakukan
+        setiap hari akan menciptakan
+        perubahan besar."
+
+        <span>
+            — HabitFlow
+        </span>
+    </div>
+
+</div>
+
+</aside> <!-- ========================= MAIN ========================= --> <main class="main">
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+    <div class="greeting">
+
+        <h1>
+            Selamat datang kembali 👋
+        </h1>
+
+        <p id="todayText">
+            Hari ini adalah hari yang baik
+            untuk berkembang.
+        </p>
+
+    </div>
+
+    <div class="top-actions">
+
+        <button
+            class="icon-btn mobile-menu"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+        <button
+            class="icon-btn"
+            onclick="toggleDark()"
+            id="themeBtn"
+        >
+            🌙
+        </button>
+
+        <button
+            class="icon-btn"
+            onclick="openModal()"
+        >
+            ＋
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-label">
+            DAILY FOCUS
+        </div>
+
+        <h2>
+            Bangun versi terbaik dirimu.
+        </h2>
+
+        <p>
+            Konsistensi adalah kunci.
+            Satu langkah kecil setiap hari.
+        </p>
+
+        <button
+            class="hero-btn"
+            onclick="openModal()"
+        >
+            + Buat Habit Baru
+        </button>
+
+    </div>
+
+    <div
+        class="hero-ring"
+        id="heroRing"
+    >
+
+        <div>
+
+            <strong id="heroPercent">
+                0%
+            </strong>
+
+            <span>
+                MONTHLY
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     STATISTIK
+========================= -->
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon purple">
+                🎯
+            </div>
+
+            <span class="change">
+                AKTIF
+            </span>
+
+        </div>
+
+        <h3 id="totalHabit">
+            0
+        </h3>
+
+        <p>
+            Total Habit
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon green">
+                ✓
+            </div>
+
+            <span class="change">
+                DONE
+            </span>
+
+        </div>
+
+        <h3 id="totalDone">
+            0
+        </h3>
+
+        <p>
+            Aktivitas Selesai
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon orange">
+                🔥
+            </div>
+
+            <span class="change">
+                BEST
+            </span>
+
+        </div>
+
+        <h3 id="bestStreak">
+            0
+        </h3>
+
+        <p>
+            Streak Terbaik
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon red">
+                ⭐
+            </div>
+
+            <span class="change">
+                LEVEL
+            </span>
+
+        </div>
+
+        <h3 id="level">
+            1
+        </h3>
+
+        <p>
+            Level Produktivitas
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<section class="content-grid">
+
+    <!-- LEFT -->
+
+    <div>
+
+        <!-- CALENDAR -->
+
+        <div class="panel">
+
+            <div class="calendar-head">
+
+                <div class="panel-title"
+                     style="margin:0">
+
+                    <h3>
+                        Kalender Aktivitas
+                    </h3>
+
+                </div>
+
+                <div class="month-control">
+
+                    <button onclick="changeMonth(-1)">
+                        ‹
+                    </button>
+
+                    <strong id="monthTitle">
+                        -
+                    </strong>
+
+                    <button onclick="changeMonth(1)">
+                        ›
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="weekdays">
+
+                <div>MIN</div>
+                <div>SEN</div>
+                <div>SEL</div>
+                <div>RAB</div>
+                <div>KAM</div>
+                <div>JUM</div>
+                <div>SAB</div>
+
+            </div>
+
+            <div
+                class="calendar-grid"
+                id="calendarGrid"
+            ></div>
+
+        </div>
+
+        <!-- HABITS -->
+
+        <div
+            class="panel"
+            style="margin-top:20px"
+        >
+
+            <div class="panel-title">
+
+                <h3>
+                    Habit Saya
+                </h3>
+
+                <span id="habitCount">
+                    0 habit
+                </span>
+
+            </div>
+
+            <div
+                class="habit-list"
+                id="habitList"
+            ></div>
+
+        </div>
+
+        <!-- HEATMAP -->
+
+        <div
+            class="panel"
+            style="margin-top:20px"
+        >
+
+            <div class="panel-title">
+
+                <h3>
+                    Activity Heatmap
+                </h3>
+
+                <span>
+                    30 hari terakhir
+                </span>
+
+            </div>
+
+            <div
+                class="heatmap"
+                id="heatmap"
+            ></div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div>
+
+        <!-- TODAY -->
+
+        <div class="panel">
+
+            <div class="panel-title">
+
+                <h3>
+                    Hari Ini
+                </h3>
+
+                <span id="todayCount">
+                    0/0
+                </span>
+
+            </div>
+
+            <div id="todayHabits"></div>
+
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+
+        <div
+            class="panel"
+            style="margin-top:20px"
+        >
+
+            <div class="panel-title">
+
+                <h3>
+                    Pencapaian
+                </h3>
+
+                <span>
+                    Rewards
+                </span>
+
+            </div>
+
+            <div class="achievements">
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        🌱
+                    </div>
+
+                    <strong>
+                        Pemula
+                    </strong>
+
+                    <span>
+                        Habit pertama
+                    </span>
+
+                </div>
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        🔥
+                    </div>
+
+                    <strong>
+                        Konsisten
+                    </strong>
+
+                    <span>
+                        7 hari streak
+                    </span>
+
+                </div>
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        🏆
+                    </div>
+
+                    <strong>
+                        Master
+                    </strong>
+
+                    <span>
+                        30 hari
+                    </span>
+
+                </div>
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        ⚡
+                    </div>
+
+                    <strong>
+                        Produktif
+                    </strong>
+
+                    <span>
+                        50 selesai
+                    </span>
+
+                </div>
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        💎
+                    </div>
+
+                    <strong>
+                        Elite
+                    </strong>
+
+                    <span>
+                        100 selesai
+                    </span>
+
+                </div>
+
+                <div class="badge">
+
+                    <div class="badge-icon">
+                        👑
+                    </div>
+
+                    <strong>
+                        Legend
+                    </strong>
+
+                    <span>
+                        365 hari
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TIPS -->
+
+        <div
+            class="panel"
+            style="
+                margin-top:20px;
+                background:
+                linear-gradient(
+                    135deg,
+                    rgba(108,99,255,.12),
+                    rgba(141,92,255,.05)
+                );
+            "
+        >
+
+            <div class="panel-title">
+
+                <h3>
+                    💡 Daily Tip
+                </h3>
+
+            </div>
+
+            <p
+                id="dailyTip"
+                style="
+                    font-size:13px;
+                    line-height:1.7;
+                    color:var(--muted);
+                "
+            ></p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main> </div> <!-- ========================= MODAL TAMBAH HABIT ========================= --> <div class="overlay" id="overlay" >
+<div class="modal">
+
+    <h2>
+        Buat Habit Baru ✨
+    </h2>
+
+    <p>
+        Tambahkan kebiasaan yang ingin
+        kamu bangun bulan ini.
+    </p>
+
+    <input
+        class="input"
+        id="habitName"
+        placeholder="Nama habit..."
+    >
+
+    <input
+        class="input"
+        id="habitCategory"
+        placeholder="Kategori, contoh: Health"
+    >
+
+    <p style="
+        margin:8px 0 7px;
+    ">
+        Pilih warna
+    </p>
+
+    <div class="colors">
+
+        <div
+            class="color selected"
+            style="background:#6c63ff"
+            data-color="#6c63ff"
+        ></div>
+
+        <div
+            class="color"
+            style="background:#20c997"
+            data-color="#20c997"
+        ></div>
+
+        <div
+            class="color"
+            style="background:#ffad33"
+            data-color="#ffad33"
+        ></div>
+
+        <div
+            class="color"
+            style="background:#ff5d73"
+            data-color="#ff5d73"
+        ></div>
+
+        <div
+            class="color"
+            style="background:#4da3ff"
+            data-color="#4da3ff"
+        ></div>
+
+    </div>
+
+    <div class="modal-actions">
+
+        <button
+            class="cancel"
+            onclick="closeModal()"
+        >
+            Batal
+        </button>
+
+        <button
+            class="create"
+            onclick="createHabit()"
+        >
+            Buat Habit
+        </button>
+
+    </div>
+
+</div>
+
+</div> <div class="toast" id="toast" > Habit berhasil diperbarui ✓ </div> <script>
+/* =========================================
+DATA
+========================================= */
+
+let habits =
+JSON.parse(
+localStorage.getItem("habitFlowUltra")
+) || [];
+
+let selectedColor =
+"#6c63ff";
+
+let viewDate =
+new Date();
+
+const monthNames = [
+"Januari",
+"Februari",
+"Maret",
+"April",
+"Mei",
+"Juni",
+"Juli",
+"Agustus",
+"September",
+"Oktober",
+"November",
+"Desember"
+];
+
+const tips = [
+"Mulai dari hal kecil. Konsistensi lebih penting daripada kesempurnaan.",
+"Jangan menunggu motivasi. Bangun sistem yang membuatmu tetap bergerak.",
+"Satu kebiasaan baik hari ini adalah investasi untuk dirimu di masa depan.",
+"Jika terasa berat, kecilkan targetnya — jangan berhenti.",
+"Rayakan progres kecilmu. Setiap checklist adalah bukti bahwa kamu bergerak maju.",
+"Buat kebiasaan mudah dilakukan dan sulit untuk dilewatkan."
+];
+
+/* =========================================
+STORAGE
+========================================= */
+
+function save(){
+
+localStorage.setItem(
+    "habitFlowUltra",
+    JSON.stringify(habits)
+);
+
+}
+
+/* =========================================
+MODAL
+========================================= */
+
+function openModal(){
+
+document
+    .getElementById("overlay")
+    .classList.add("show");
+
+document
+    .getElementById("habitName")
+    .focus();
+
+}
+
+function closeModal(){
+
+document
+    .getElementById("overlay")
+    .classList.remove("show");
+
+}
+
+/* =========================================
+COLOR PICKER
+========================================= */
+
+document
+.querySelectorAll(".color")
+.forEach(color => {
+
+    color.addEventListener(
+        "click",
+        function(){
+
+            document
+                .querySelectorAll(".color")
+                .forEach(c =>
+                    c.classList.remove("selected")
+                );
+
+            this.classList.add("selected");
+
+            selectedColor =
+                this.dataset.color;
+
+        }
+    );
+
+});
+
+/* =========================================
+CREATE HABIT
+========================================= */
+
+function createHabit(){
+
+const name =
+    document
+        .getElementById("habitName")
+        .value
+        .trim();
+
+const category =
+    document
+        .getElementById("habitCategory")
+        .value
+        .trim()
+        || "Personal";
+
+if(!name){
+
+    showToast(
+        "Masukkan nama habit terlebih dahulu!"
+    );
+
+    return;
+
+}
+
+habits.push({
+
+    id:Date.now(),
+
+    name:name,
+
+    category:category,
+
+    color:selectedColor,
+
+    completed:{}
+
+});
+
+document
+    .getElementById("habitName")
+    .value="";
+
+document
+    .getElementById("habitCategory")
+    .value="";
+
+save();
+
+closeModal();
+
+render();
+
+showToast(
+    "Habit berhasil dibuat ✨"
+);
+
+}
+
+/* =========================================
+DELETE
+========================================= */
+
+function deleteHabit(id){
+
+if(
+    !confirm(
+        "Hapus habit ini?"
+    )
+) return;
+
+habits =
+    habits.filter(
+        h => h.id !== id
+    );
+
+save();
+
+render();
+
+showToast(
+    "Habit dihapus"
+);
+
+}
+
+/* =========================================
+TOGGLE TODAY
+========================================= */
+
+function toggleToday(id){
+
+const habit =
+    habits.find(
+        h => h.id === id
+    );
+
+if(!habit) return;
+
+const key =
+    dateKey(
+        new Date()
+    );
+
+if(habit.completed[key]){
+
+    delete habit.completed[key];
+
+}else{
+
+    habit.completed[key] = true;
+
+}
+
+save();
+
+render();
+
+showToast(
+    habit.completed[key]
+    ? "Mantap! Habit selesai 🔥"
+    : "Checklist dibatalkan"
+);
+
+}
+
+/* =========================================
+TOGGLE SPECIFIC DATE
+========================================= */
+
+function toggleDate(
+id,
+key
+){
+
+const habit =
+    habits.find(
+        h => h.id === id
+    );
+
+if(!habit) return;
+
+if(habit.completed[key]){
+
+    delete habit.completed[key];
+
+}else{
+
+    habit.completed[key] = true;
+
+}
+
+save();
+
+render();
+
+}
+
+/* =========================================
+DATE KEY
+========================================= */
+
+function dateKey(date){
+
+const y =
+    date.getFullYear();
+
+const m =
+    String(
+        date.getMonth()+1
+    ).padStart(2,"0");
+
+const d =
+    String(
+        date.getDate()
+    ).padStart(2,"0");
+
+return `${y}-${m}-${d}`;
+
+}
+
+/* =========================================
+RENDER ALL
+========================================= */
+
+function render(){
+
+renderCalendar();
+
+renderHabits();
+
+renderToday();
+
+renderHeatmap();
+
+updateStats();
+
+}
+
+/* =========================================
+CALENDAR
+========================================= */
+
+function renderCalendar(){
+
+const grid =
+    document
+        .getElementById(
+            "calendarGrid"
+        );
+
+grid.innerHTML="";
+
+const y =
+    viewDate.getFullYear();
+
+const m =
+    viewDate.getMonth();
+
+document
+    .getElementById(
+        "monthTitle"
+    )
+    .textContent =
+    monthNames[m]
+    + " "
+    + y;
+
+const firstDay =
+    new Date(
+        y,
+        m,
+        1
+    ).getDay();
+
+const totalDays =
+    new Date(
+        y,
+        m+1,
+        0
+    ).getDate();
+
+for(
+    let i=0;
+    i<firstDay;
+    i++
+){
+
+    grid.innerHTML +=
+        `<div></div>`;
+
+}
+
+for(
+    let day=1;
+    day<=totalDays;
+    day++
+){
+
+    const date =
+        new Date(
+            y,
+            m,
+            day
+        );
+
+    const key =
+        dateKey(date);
+
+    const today =
+        key ===
+        dateKey(new Date());
+
+    let completed =
+        0;
+
+    habits.forEach(
+        h => {
+
+            if(
+                h.completed[key]
+            ){
+
+                completed++;
+
+            }
+
+        }
+    );
+
+    let dots="";
+
+    habits.slice(0,5)
+        .forEach(
+            h => {
+
+                dots += `
+                    <span
+                        class="dot
+                        ${
+                            h.completed[key]
+                            ? "done"
+                            : ""
+                        }"
+                        style="
+                            ${
+                                h.completed[key]
+                                ? `background:${h.color}`
+                                : ""
+                            }
+                        "
+                    ></span>
+                `;
+
+            }
+        );
+
+    grid.innerHTML += `
+
+        <div
+            class="date
+            ${today ? "today":""}"
+            onclick="
+                showDayDetails('${key}')
+            "
+        >
+
+            <div class="date-number">
+                ${day}
+            </div>
+
+            <div class="date-bar">
+                ${dots}
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+}
+
+/* =========================================
+HABITS
+========================================= */
+
+function renderHabits(){
+
+const list =
+    document
+        .getElementById(
+            "habitList"
+        );
+
+list.innerHTML="";
+
+document
+    .getElementById(
+        "habitCount"
+    )
+    .textContent =
+    habits.length
+    + " habit";
+
+if(
+    habits.length === 0
+){
+
+    list.innerHTML = `
+
+        <div
+            style="
+                text-align:center;
+                padding:35px;
+                color:var(--muted)
+            "
+        >
+
+            <div
+                style="
+                    font-size:35px;
+                    margin-bottom:10px
+                "
+            >
+                🌱
+            </div>
+
+            <strong>
+                Belum ada habit
+            </strong>
+
+            <p
+                style="
+                    font-size:11px;
+                    margin-top:5px
+                "
+            >
+                Klik tombol + untuk memulai.
+            </p>
+
+        </div>
+
+    `;
+
+    return;
+
+}
+
+habits.forEach(
+    habit => {
+
+        const completed =
+            Object.keys(
+                habit.completed
+            ).length;
+
+        const daysInCurrent =
+            new Date(
+                new Date().getFullYear(),
+                new Date().getMonth()+1,
+                0
+            ).getDate();
+
+        const progress =
+            Math.min(
+                100,
+                Math.round(
+                    completed /
+                    daysInCurrent
+                    * 100
+                )
+            );
+
+        list.innerHTML += `
+
+            <div class="habit">
+
+                <div class="habit-row">
+
+                    <div class="habit-info">
+
+                        <div
+                            class="habit-color"
+                            style="
+                                background:${habit.color}
+                            "
+                        ></div>
+
+                        <div>
+
+                            <strong>
+                                ${escapeHTML(
+                                    habit.name
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(
+                                    habit.category
+                                )}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <button
+                            class="check-btn"
+                            onclick="
+                                toggleToday(
+                                    ${habit.id}
+                                )
+                            "
+                            id="
+                                check-${habit.id}
+                            "
+                        >
+                            ✓
+                        </button>
+
+                        <button
+                            class="check-btn"
+                            style="
+                                margin-left:4px;
+                                color:#ff5d73;
+                            "
+                            onclick="
+                                deleteHabit(
+                                    ${habit.id}
+                                )
+                            "
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="habit-progress">
+
+                    <div
+                        style="
+                            width:${progress}%;
+                            background:${habit.color}
+                        "
+                    ></div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        const todayKey =
+            dateKey(
+                new Date()
+            );
+
+        if(
+            habit.completed[todayKey]
+        ){
+
+            const button =
+                document.getElementById(
+                    `check-${habit.id}`
+                );
+
+            if(button){
+
+                button.classList.add(
+                    "done"
+                );
+
+            }
+
+        }
+
+    }
+);
+
+}
+
+/* =========================================
+TODAY
+========================================= */
+
+function renderToday(){
+
+const container =
+    document
+        .getElementById(
+            "todayHabits"
+        );
+
+container.innerHTML="";
+
+const key =
+    dateKey(
+        new Date()
+    );
+
+let done=0;
+
+habits.forEach(
+    habit => {
+
+        const isDone =
+            !!habit.completed[key];
+
+        if(isDone) done++;
+
+        container.innerHTML += `
+
+            <div
+                style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    padding:12px 0;
+                    border-bottom:1px solid var(--border)
+                "
+            >
+
+                <div
+                    style="
+                        display:flex;
+                        align-items:center;
+                        gap:9px
+                    "
+                >
+
+                    <span
+                        style="
+                            width:8px;
+                            height:8px;
+                            border-radius:50%;
+                            background:${habit.color}
+                        "
+                    ></span>
+
+                    <div>
+
+                        <strong
+                            style="font-size:11px"
+                        >
+                            ${escapeHTML(
+                                habit.name
+                            )}
+                        </strong>
+
+                        <div
+                            style="
+                                font-size:8px;
+                                color:var(--muted);
+                                margin-top:2px
+                            "
+                        >
+                            ${escapeHTML(
+                                habit.category
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="
+                        check-btn
+                        ${isDone ? "done":""}
+                    "
+                    onclick="
+                        toggleToday(
+                            ${habit.id}
+                        )
+                    "
+                >
+                    ✓
+                </button>
+
+            </div>
+
+        `;
+
+    }
+);
+
+document
+    .getElementById(
+        "todayCount"
+    )
+    .textContent =
+    done
+    + "/"
+    + habits.length;
+
+}
+
+/* =========================================
+HEATMAP
+========================================= */
+
+function renderHeatmap(){
+
+const map =
+    document
+        .getElementById(
+            "heatmap"
+        );
+
+map.innerHTML="";
+
+for(
+    let i=29;
+    i>=0;
+    i--
+){
+
+    const date =
+        new Date();
+
+    date.setDate(
+        date.getDate()-i
+    );
+
+    const key =
+        dateKey(date);
+
+    let count=0;
+
+    habits.forEach(
+        h => {
+
+            if(
+                h.completed[key]
+            ){
+
+                count++;
+
+            }
+
+        }
+    );
+
+    let level="";
+
+    if(count>=4)
+        level="l4";
+    else if(count>=3)
+        level="l3";
+    else if(count>=2)
+        level="l2";
+    else if(count>=1)
+        level="l1";
+
+    map.innerHTML += `
+        <div
+            class="heat ${level}"
+            title="${key}"
+        ></div>
+    `;
+
+}
+
+}
+
+/* =========================================
+STATISTICS
+========================================= */
+
+function updateStats(){
+
+let totalDone=0;
+
+habits.forEach(
+    h => {
+
+        totalDone +=
+            Object.keys(
+                h.completed
+            ).length;
+
+    }
+);
+
+const possible =
+    habits.length *
+    new Date(
+        new Date().getFullYear(),
+        new Date().getMonth()+1,
+        0
+    ).getDate();
+
+const percent =
+    possible
+    ? Math.round(
+        totalDone /
+        possible *
+        100
+    )
+    : 0;
+
+document
+    .getElementById(
+        "totalHabit"
+    )
+    .textContent =
+    habits.length;
+
+document
+    .getElementById(
+        "totalDone"
+    )
+    .textContent =
+    totalDone;
+
+const streak =
+    calculateStreak();
+
+document
+    .getElementById(
+        "bestStreak"
+    )
+    .textContent =
+    streak;
+
+const level =
+    Math.max(
+        1,
+        Math.floor(
+            totalDone/10
+        )+1
+    );
+
+document
+    .getElementById(
+        "level"
+    )
+    .textContent =
+    level;
+
+document
+    .getElementById(
+        "heroPercent"
+    )
+    .textContent =
+    percent+"%";
+
+const degree =
+    percent*3.6;
+
+document
+    .getElementById(
+        "heroRing"
+    )
+    .style.background =
+
+    `conic-gradient(
+        white ${degree}deg,
+        rgba(255,255,255,.18)
+        ${degree}deg
+    )`;
+
+}
+
+/* =========================================
+STREAK
+========================================= */
+
+function calculateStreak(){
+
+let best=0;
+
+habits.forEach(
+    habit => {
+
+        let streak=0;
+
+        const date =
+            new Date();
+
+        for(
+            let i=0;
+            i<365;
+            i++
+        ){
+
+            const key =
+                dateKey(date);
+
+            if(
+                habit.completed[key]
+            ){
+
+                streak++;
+
+                best =
+                    Math.max(
+                        best,
+                        streak
+                    );
+
+            }else{
+
+                streak=0;
+
+            }
+
+            date.setDate(
+                date.getDate()-1
+            );
+
+        }
+
+    }
+);
+
+return best;
+
+}
+
+/* =========================================
+MONTH NAVIGATION
+========================================= */
+
+function changeMonth(amount){
+
+viewDate.setMonth(
+    viewDate.getMonth()
+    + amount
+);
+
+renderCalendar();
+
+}
+
+/* =========================================
+SHOW DAY
+========================================= */
+
+function showDayDetails(key){
+
+if(
+    habits.length === 0
+){
+
+    showToast(
+        "Belum ada habit."
+    );
+
+    return;
+
+}
+
+let completed=0;
+
+habits.forEach(
+    h => {
+
+        if(
+            h.completed[key]
+        ){
+
+            completed++;
+
+        }
+
+    }
+);
+
+showToast(
+    `${completed} dari ${habits.length} habit selesai pada ${key}`
+);
+
+}
+
+/* =========================================
+DARK MODE
+========================================= */
+
+function toggleDark(){
+
+document.body.classList.toggle(
+    "dark"
+);
+
+const dark =
+    document.body.classList.contains(
+        "dark"
+    );
+
+localStorage.setItem(
+    "habitDark",
+    dark
+);
+
+document
+    .getElementById(
+        "themeBtn"
+    )
+    .textContent =
+    dark ? "☀️":"🌙";
+
+}
+
+/* =========================================
+SIDEBAR
+========================================= */
+
+function toggleSidebar(){
+
+document
+    .getElementById(
+        "sidebar"
+    )
+    .classList.toggle(
+        "open"
+    );
+
+}
+
+/* =========================================
+RESET
+========================================= */
+
+function resetAll(){
+
+if(
+    !confirm(
+        "Semua habit dan data akan dihapus. Lanjutkan?"
+    )
+) return;
+
+habits=[];
+
+save();
+
+render();
+
+showToast(
+    "Semua data telah dihapus."
+);
+
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+function showToast(message){
+
+const toast =
+    document
+        .getElementById(
+            "toast"
+        );
+
+toast.textContent =
+    message;
+
+toast.classList.add(
+    "show"
+);
+
+setTimeout(
+    () => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },
+    2200
+);
+
+}
+
+/* =========================================
+ESCAPE HTML
+========================================= */
+
+function escapeHTML(text){
+
+const div =
+    document.createElement(
+        "div"
+    );
+
+div.textContent =
+    text;
+
+return div.innerHTML;
+
+}
+
+/* =========================================
+DAILY TIP
+========================================= */
+
+document
+.getElementById(
+"dailyTip"
+)
+.textContent =
+
+tips[
+    new Date().getDate()
+    %
+    tips.length
+];
+
+/* =========================================
+TODAY TEXT
+========================================= */
+
+document
+.getElementById(
+"todayText"
+)
+.textContent =
+
+new Date().toLocaleDateString(
+    "id-ID",
+    {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+    }
+);
+
+/* =========================================
+DARK MODE LOAD
+========================================= */
+
+if(
+localStorage.getItem(
+"habitDark"
+) === "true"
+){
+
+document.body.classList.add(
+    "dark"
+);
+
+document
+    .getElementById(
+        "themeBtn"
+    )
+    .textContent="☀️";
+
+}
+
+/* =========================================
+KEYBOARD ESC
+========================================= */
+
+document.addEventListener(
+"keydown",
+e => {
+
+    if(e.key==="Escape"){
+
+        closeModal();
+
+    }
+
+}
+
+);
+
+/* =========================================
+START
+========================================= */
+
+render();
+
+</script> </body> </html>
